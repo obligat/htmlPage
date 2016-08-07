@@ -1,30 +1,21 @@
 var express = require('express');
-var app = express();
-var cors = require('cors');
-
-var bodyParser = require('body-parser');
 const zip2bar = require('../public/core/Zipcode');
 const bar2zip = require('../public/core/Barcode');
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+var cors = require('cors');
+var app = express();
 app.use(cors());
 
 
 // app.use(express.static('public'));
 app.get('/zipcode?', function (req, res) {
-    console.log(req.query.code);
     let bar = new zip2bar().zipcode2Barcode(req.query.code);
-    console.log(bar);
     res.send(bar);
 });
 
-/*app.post('/', function (req, res) {
-
- let bar = new bar2zip().barcode2Zipcode(req.body.input);
- console.log(bar);
- res.send(bar);
- });*/
+app.get('/barcode?', function (req, res) {
+    let num = new bar2zip().barcode2Zipcode(req.query.code);
+    res.send(num);
+});
 
 
 app.listen(3000, function () {

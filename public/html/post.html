@@ -12,8 +12,15 @@
             $('#button').click(function () {
                 let reg = /^\d{5}(-?\d{4})?$/;
                 let input = $('#input_code').val();
-                if (reg.test(input)) {
+                let choice = $('input[type="radio"]:checked').val();
+
+                if (reg.test(input) && $('#btn2').val() === choice) {
                     $.get('http://localhost:3000/zipcode?code=' + input, function (data, status) {
+                        $('#res').text(data.value);
+                    })
+                }
+                else if (input.match(/^\|[: |]+\|$/) && $('#btn1').val() === choice) {
+                    $.get('http://localhost:3000/barcode?code=' + input, function (data, status) {
                         $('#res').text(data.value);
                     })
                 }
@@ -44,12 +51,14 @@
         <p id="res" class="col-md-8 control-span"></p>
     </div>
     <label>
-        <input type="radio" class="col-md-offset-4 control-label" form="trans" name="trans_method" value="to_Barcode"
+        <input type="radio" id="btn1" class="col-md-offset-4 control-label" form="trans" name="trans_method"
+               value="to_Barcode"
                checked>Barcode
         to Zipcode
     </label>
     <label>
-        <input type="radio" class="col-md-offset-8 control-label" form="trans" name="trans_method" value="to_Zipcode">Zipcode
+        <input type="radio" id="btn2" class="col-md-offset-8 control-label" form="trans" name="trans_method"
+               value="to_Zipcode">Zipcode
         to Barcode
     </label>
     <br>

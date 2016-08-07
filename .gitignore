@@ -113,3 +113,5 @@ jspm_packages
 
 #!! ERROR: .idea is undefined. Use list command to see defined gitignore types !!#
 .idea/
+
+.idea/

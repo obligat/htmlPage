@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="./jquery.min.js"></script>
+    <title>POST-NET</title>
+    <script>
+
+
+        $(document).ready(function () {
+            $('#button').click(function () {
+                let reg = /^\d{5}(-?\d{4})?$/;
+                let input = $('#input_code').val();
+                if (reg.test(input)) {
+                    $.get('http://localhost:3000/zipcode?code=' + input, function (data, status) {
+                        $('#res').text(data.value);
+                    })
+                }
+                else {
+                    $('#Error').text('Error message should be displayed here .')
+                }
+            })
+        })
+    </script>
+
+</head>
+<body>
+<h1 class="text-center">POST-NET</h1>
+<section id="trans" class="container">
+    <form id="trans_form" role="form">
+        <div class="form-group">
+            <label for="input_code" class="col-sm-4 control-label">Input code</label>
+            <div class="col-md-8">
+
+                <input type="text" class="form-control" id="input_code" name="input_code"
+                       placeholder="Please input code here."/>
+            </div>
+            <p id="Error" class="text-center"></p>
+        </div>
+    </form>
+    <div class="form-group">
+        <span id="result" class="col-md-4 control-label">Result :</span>
+        <p id="res" class="col-md-8 control-span"></p>
+    </div>
+    <label>
+        <input type="radio" class="col-md-offset-4 control-label" form="trans" name="trans_method" value="to_Barcode"
+               checked>Barcode
+        to Zipcode
+    </label>
+    <label>
+        <input type="radio" class="col-md-offset-8 control-label" form="trans" name="trans_method" value="to_Zipcode">Zipcode
+        to Barcode
+    </label>
+    <br>
+    <button id="button" type="button" class="btn btn-default col-md-offset-5 ">OK</button>
+</section>
+<section id="history" class="table-responsive container">
+    <h2 class="text-center">history</h2>
+    <table class="table table-striped ">
+        <thead>
+        <tr>
+            <th>code</th>
+            <th>result</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>abcd</td>
+            <td>1234</td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

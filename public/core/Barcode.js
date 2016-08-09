@@ -28,16 +28,16 @@ function toZipcode(digits) {
 class Barcode {
     barcode2Zipcode(barcode) {
         if (!checkBarcode(barcode)) {
-            return {success: false, value: 'invalid_barcode'};
+            return {error: `you should input like this :
+             |:::||::|:|::||::|::|:|:|::||::|:::||::|:|:|:::|:|:|
+                    or 	|:::||::|:|::||::|::|:|:|::|:|:|
+`};
         }
         const deleteBorderBar = deleteBorder(barcode);
         const digits = barcodeToDigits(deleteBorderBar);
-        if (!checkDigit(digits)) {
-            return {success: false, value: 'check_digit_error'};
-        }
         const zipcode = toZipcode(digits);
         const formattedZipcode = align(zipcode);
-        return {success: true, value: formattedZipcode}
+        return {value: formattedZipcode}
     }
 }
 

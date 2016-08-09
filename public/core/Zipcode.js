@@ -22,12 +22,12 @@ function toBarcode(zipcode) {
 class Zipcode {
     zipcode2Barcode(zipcode) {
         if (!checkZipcode(zipcode)) {
-            return {success: false, value: 'invalid_zipcode'};
+            return { error: 'Please input correct zipcode like : 12345 or 123456789 or 12345-1234'};
         }
         let zipcodeWithoutDash = formatZipcode(zipcode);
         let checkDigit = calculateCheckDigit(zipcodeWithoutDash);
         let barcode = toBarcode(zipcodeWithoutDash.concat(checkDigit));
-        return {success: true, value: barcode};
+        return { value: barcode};
     }
 
 }
